@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  website-markdownify:
+  fastapi-markdownify:
     build: .
-    container_name: website-markdownify
+    container_name: fastapi-markdownify
     ports:
       - '8001:8000'
     environment:
