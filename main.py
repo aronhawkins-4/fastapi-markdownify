@@ -30,7 +30,12 @@ async def get_markdown(request: UrlRequest):
     docs = await loader.aload()  # Use async version
     md = MarkdownifyTransformer(strip=['a'])
     converted_docs = md.transform_documents(docs)
-    return {"source": converted_docs[0].metadata["source"], "title": converted_docs[0].metadata["title"], "description": converted_docs[0].metadata["description"], "markdown": converted_docs[0].page_content}
+    return {
+        "source": converted_docs[0].metadata.get("source", ""),
+        "title": converted_docs[0].metadata.get("title", ""),
+        "description": converted_docs[0].metadata.get("description", ""),
+        "markdown": converted_docs[0].page_content
+    }
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
